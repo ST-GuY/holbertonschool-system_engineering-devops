@@ -1,0 +1,29 @@
+A user wants to access the website www.foobar.com
+.
+
+When the user enters www.foobar.com
+ in a web browser, a DNS server resolves the domain name to the IP address 8.8.8.8. The www record is a DNS A record that points to the server’s IP address.
+
+The user’s computer then sends an HTTP request over the Internet to the server.
+
+A server is a machine that hosts and delivers websites to users. This server contains all the components needed to run the website.
+
+The web server (Nginx) receives HTTP requests from users and serves static content or forwards requests to the application server.
+
+The application server runs the application logic and processes user requests.
+
+The database (MySQL) stores the website data, and the application server reads and writes data from it.
+
+The server communicates with the user’s computer using the HTTP/HTTPS protocol.
+
+
+Issues with this infrastructure
+
+-- Single Point of Failure (SPOF):
+If the server goes down, the website becomes unavailable.
+
+-- Downtime during maintenance:
+Restarting the server or deploying new code causes the website to be temporarily unavailable.
+
+-- Limited scalability:
+This infrastructure cannot handle a high volume of traffic because it uses only one server.
