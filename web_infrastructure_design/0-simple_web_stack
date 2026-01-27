@@ -29,3 +29,14 @@ Restarting the server or deploying new code causes the website to be temporarily
 
 -- Limited scalability:
 This infrastructure cannot handle a high volume of traffic because it uses only one server.
+
+
+User
+  |
+  |  HTTP/HTTPS
+  v
+Server (8.8.8.8)
+ ├── Nginx (Web Server)
+ ├── Application Server
+ ├── Application Files
+ └── MySQL Database

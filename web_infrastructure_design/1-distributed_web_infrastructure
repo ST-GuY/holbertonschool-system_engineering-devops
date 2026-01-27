@@ -23,3 +23,18 @@ There is no firewall and no HTTPS, which makes the infrastructure insecure.
 
 -- No monitoring:
 There is no monitoring system to detect failures, performance issues, or traffic spikes.
+
+User
+  |
+  v
+Load Balancer (HAProxy)
+  |
+  |------ Server 1
+  |        ├── Nginx
+  |        ├── App Server
+  |        └── MySQL (Primary)
+  |
+  |------ Server 2
+           ├── Nginx
+           ├── App Server
+           └── MySQL (Replica)
