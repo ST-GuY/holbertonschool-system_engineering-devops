@@ -1,0 +1,25 @@
+Distributed Web Infrastructure (Three Servers)
+
+A user wants to access the website www.foobar.com
+ using a web browser.
+
+When the user enters the URL, a DNS server resolves the domain name and returns the IP address of the load balancer. The user’s computer then sends an HTTP request over the Internet to the load balancer.
+
+A load balancer (HAProxy) is added to distribute incoming traffic between multiple servers. This improves availability and allows the infrastructure to handle more requests. The load balancer uses a round-robin algorithm, which sends requests alternately to each server in order.
+
+This setup is Active-Active because both servers receive traffic at the same time. In contrast, an Active-Passive setup would have one active server and one standby server that only becomes active if the first one fails.
+
+Behind the load balancer, there are two servers. Each server contains a web server (Nginx), an application server, the application files, and a MySQL database. The web server handles HTTP requests and forwards dynamic requests to the application server. The application server processes the business logic of the website.
+
+The databases are configured in a Primary-Replica (Master-Slave) setup. The Primary database handles write operations such as insert and update queries. The Replica database copies data from the Primary and handles read operations. The application writes data to the Primary database and reads data from the Replica.
+
+Issues with this infrastructure
+
+-- Single Point of Failure (SPOF):
+The load balancer is a SPOF. If it goes down, the entire website becomes unavailable.
+
+-- Security issues:
+There is no firewall and no HTTPS, which makes the infrastructure insecure.
+
+-- No monitoring:
+There is no monitoring system to detect failures, performance issues, or traffic spikes.
