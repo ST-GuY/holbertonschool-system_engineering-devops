@@ -1,0 +1,30 @@
+Application Server vs Web Server
+
+This infrastructure uses multiple servers to separate responsibilities and improve availability.
+
+A second load balancer (HAProxy) is added and configured as a cluster with the first one. This is done to avoid a single point of failure. If one load balancer fails, the other one can continue to handle traffic.
+
+The components of the infrastructure are split across different servers:
+
+-- The web server (Nginx) is responsible for handling HTTP requests and serving static content.
+
+-- The application server runs the business logic of the application and processes dynamic requests.
+
+-- The database server (MySQL) stores and manages the application data.
+
+Separating these components allows each part of the infrastructure to scale independently and makes maintenance and troubleshooting easier. It also improves security by limiting the responsibilities of each server.
+
+                    User
+                     |
+                     v
+        Load Balancer 1 (HAProxy)
+        Load Balancer 2 (HAProxy - Cluster)
+                     |
+                     v
+               Web Server (Nginx)
+                     |
+                     v
+             Application Server
+                     |
+                     v
+              Database Server (MySQL)
