@@ -1,0 +1,51 @@
+Secured and Monitored Web Infrastructure
+
+A user wants to access the website www.foobar.com
+ using a web browser.
+
+The user sends a request over the Internet using HTTPS. HTTPS is used to encrypt the traffic between the user and the infrastructure in order to protect sensitive data and prevent man-in-the-middle attacks. An SSL certificate is installed on the load balancer to serve encrypted traffic for www.foobar.com
+.
+
+The request first goes through a firewall, which is used to filter and control incoming and outgoing network traffic. Firewalls help protect the infrastructure by blocking unauthorized access. Three firewalls are added to secure different parts of the infrastructure, such as the load balancer and the servers.
+
+A load balancer (HAProxy) receives the HTTPS traffic and distributes it between the two backend servers. This improves availability and performance by sharing the load across multiple servers.
+
+Each server contains a web server (Nginx), an application server, the application files, and a MySQL database. The web server handles incoming requests and forwards them to the application server, which processes the business logic.
+
+To monitor the infrastructure, a monitoring client (agent) is installed on each server. Monitoring is used to collect metrics and logs such as CPU usage, memory usage, traffic, and errors. The monitoring agents collect this data and send it to a monitoring service for analysis.
+
+To monitor the QPS (Queries Per Second) of the web server, the monitoring tool collects metrics from the web server logs or counts the number of HTTP requests handled per second.
+
+Issues with this infrastructure
+
+-- SSL termination at the load balancer:
+If SSL is terminated at the load balancer, traffic between the load balancer and the servers is not encrypted, which can be a security risk.
+
+-- Only one MySQL server accepting writes:
+Having a single database that handles write operations creates a single point of failure and limits scalability.
+
+-- Servers with all the same components:
+Hosting the web server, application server, and database on the same machines makes scaling, maintenance, and troubleshooting more difficult.
+
+
+
+
+                     User
+                      |
+                   HTTPS
+                      |
+                  Firewall
+                      |
+           Load Balancer (HAProxy + SSL)
+                      |
+                  Firewall
+          --------------------------------
+          |                              |
+          v                              v
+     Server 1                       Server 2
+     ├── Nginx                      ├── Nginx
+     ├── App Server                 ├── App Server
+     ├── App Files                  ├── App Files
+     ├── MySQL                      ├── MySQL
+     ├── Monitoring Agent           ├── Monitoring Agent
+     └── Firewall                   └── Firewall
